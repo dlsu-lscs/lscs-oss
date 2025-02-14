@@ -1,27 +1,33 @@
-const express = require('express');
+import express from 'express';
+import Image from '../model.js';
+import accessValidation from '../middleware/accessValidation.js';
+
 const router = express.Router();
-const Image = require("./model");
-const accessValidation = require("./middleware/accessValidation");
 
-router.get("/:key", accessValidation, async (req, res) => {
-  const type = response.query.type || "main";
+router.get('/:key', async (req, res) => {
+  try {
+    const type = req.query.type || 'default';
+    const img = await Image.findById(req.params.key).exec();
 
-  const img = await Image.find({ key: response.query.key }).exec();
+    if (!img) {
+      return res.status(404).send({ status: 'error', msg: 'Image not found.' });
+    }
 
-  if (!img) {
-    return res.status(400).send({ status: "error", msg: "Image not found." });
-  }
+    // NOTE: Only one check, if not a message type, automatically assume global access.
+    if (img.type === 'message' && !img.parties.includes(req.user?._id)) {
+      return res.status(403).send({ status: 'error', msg: 'Unauhthorized access.' });
+    }
 
-  // NOTE: Only one check, if not a message type, automatically assume global access.
-  if (img.type == "message" && !img.parties.includes(user.id)) {
-    return res.status(400).send({ status: "error", msg: "Unauthorized access. " });
-  }
+    console.log(img)
+    const filePath = type == 'thumbnail' ? img.thumbnail : img.image;
+    if (!filePath) {
+      return res.status(400).send({ status: 'error', msg: 'Invalid image path.' });
+    }
 
-  if (type == "thumbnail") {
-    return res.sendFile(process.env.IMAGE_STORE_PATH, img.imagePath.thumbnail);
-  } else {
-    return res.sendFile(process.env.IMAGE_STORE_PATH, img.imagePath.main);
+    return res.sendFile(filePath, { root: '.' });
+  } catch (error) {
+    res.status(500).json({ status: 'error', msg: error.message });
   }
 });
 
-module.exports = router;
+export default router;
