@@ -4,7 +4,7 @@ import accessValidation from '../middleware/accessValidation.js';
 
 const router = express.Router();
 
-router.get('/:key', async (req, res) => {
+router.get('/:key', accessValidation, async (req, res) => {
   try {
     const type = req.query.type || 'default';
     const img = await Image.findById(req.params.key).exec();

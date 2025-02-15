@@ -44,8 +44,8 @@ router.post("/upload", accessValidation, async (req, res) => {
       }).then((imageKey) => {
         res.status(201).json({
           status: 'success',
-          image: `${process.env.URL}/${imageKey._id}`,
-          thumbnail: `${process.env.URL}/${imageKey._id}?type=thumbnail`
+          image: `${process.env.API_URL}/${imageKey._id}`,
+          thumbnail: `${process.env.API_URL}/${imageKey._id}?type=thumbnail`
         });
       });
 
