@@ -1,0 +1,9 @@
+services:
+  lasallian-me-oss:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      
+    volumes:
+      - 'oss-images:/data'

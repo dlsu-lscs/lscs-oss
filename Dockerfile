@@ -12,15 +12,6 @@ RUN npm install --omit=dev
 # Copy the rest of the application
 COPY . .
 
-# Declare an environment variable for image storage path
-ENV IMAGE_STORE_PATH=./oss-images/
-
-# Create the directory for image storage
-RUN mkdir -p "$IMAGE_STORE_PATH"
-
-# Declare a volume for persistent storage
-VOLUME ["/data"]
-
 # Expose application port (change as needed)
 EXPOSE 3000
 
