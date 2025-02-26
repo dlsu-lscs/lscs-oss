@@ -4,6 +4,11 @@ services:
     ports:
       - "3000:3000"
     environment:
-      
+      - IMAGE_STORE_PATH: ${IMAGE_STORE_PATH}
+      - CLIENT_SECRET_KEY: ${CLIENT_SECRET_KEY}
+      - MONGODB_URI: ${MONGODB_URI}
     volumes:
-      - 'oss-images:/data'
+      - oss-images:/data/
+
+volumes:
+  oss-images:
