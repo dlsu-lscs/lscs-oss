@@ -1,6 +1,8 @@
 # LSCS Object Storage Service (OSS)
 A lightweight drop-in Object Storage Service for storing images remotely from your main server.
 
+Setup with the given `.env.example` file. Your CLIENT_SECRET_KEY must match your JWT token in your main server.
+
 ## `POST /upload`
 Post example:
 ```json
@@ -8,6 +10,8 @@ Post example:
   "type": "", // OPTIONAL, either "default" or "message". "message" is used for images used in DMs
 }
 ```
+> NOTE: Add Bearer Token header with a JWT token from your main server backend.
+> 
 Use form upload or however it is react to select an image.
 
 Response example:
