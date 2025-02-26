@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install --omit=dev
+RUN npm install
 
 # Copy the rest of the application
 COPY . .
@@ -16,4 +16,4 @@ COPY . .
 EXPOSE 3000
 
 # Command to run the application
-CMD ["node", "server.js"]
+CMD ["node", "index.js"]
