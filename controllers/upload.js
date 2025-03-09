@@ -44,8 +44,6 @@ router.post("/upload", accessValidation, async (req, res) => {
 
       const data = req.body;
 
-      console.log(req.user);
-
       await Image.create({
         type: data.type || "default",
         image: mainFilePath,
@@ -53,7 +51,7 @@ router.post("/upload", accessValidation, async (req, res) => {
         metadata: {
           uploader: {
             id: req.user._id,
-            username: req.user.credentials.email,
+            username: req.user.info.username,
           },
           // owners: uploadData.metadata.owners
         },
