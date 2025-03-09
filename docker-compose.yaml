@@ -7,6 +7,7 @@ services:
       - IMAGE_STORE_PATH: ${IMAGE_STORE_PATH}
       - CLIENT_SECRET_KEY: ${CLIENT_SECRET_KEY}
       - MONGODB_URI: ${MONGODB_URI}
+      - API_URL: ${API_URL}
     volumes:
       - oss-images:/${IMAGE_STORE_PATH}
 
