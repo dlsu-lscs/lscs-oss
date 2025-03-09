@@ -51,7 +51,7 @@ router.post("/upload", accessValidation, async (req, res) => {
 
     } catch (error) {
       console.error(error)
-      // return res.status(500).json({ success: false, message: error.message });
+      return res.status(500).json({ success: false, message: "Internal server error" });
     }
   });
 });
